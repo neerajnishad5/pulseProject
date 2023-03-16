@@ -1,0 +1,443 @@
+################################### USER ROUTES ###################################
+
+
+#  user resgistration route
+POST http://localhost:4000/user/register
+Content-Type: application/json
+
+{
+    "userId": 1001,
+    "name": "dummy",
+    "email": "101@westagilelab.com",
+    "password": "dummy"
+}
+
+###
+
+#  user login route
+POST http://localhost:4000/user/login
+Content-Type: application/json
+
+{
+
+    "userId": 100,
+    "password": "dummy"
+}
+
+###
+
+# user reset password
+
+POST http://localhost:4000/user/reset-password
+Content-Type: application/json
+
+{
+    "email": "akash@westagilelab.com",
+    "otp": 877897
+}
+
+###
+
+POST http://localhost:4000/user/forgot-password
+Content-Type: application/json
+
+{
+    "email": "akash@westagilelab.com"
+}
+
+
+
+
+
+
+
+################################### SUPER ADMIN ROUTES ###################################
+
+POST http://localhost:4000/user/login
+Content-Type: application/json
+
+{
+    "userId": 1,
+    "password": "super"
+}
+
+
+###
+
+PUT http://localhost:4000/super-admin/assign-role
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJSb2xlIjoic3VwZXJBZG1pbiIsImlhdCI6MTY3ODg4MjEwNywiZXhwIjoxNjc4OTY4NTA3fQ.7sP_PQ8Z64dapt2dyzllDxsJuj06icjQsdmLflcnT-4
+Content-Type: application/json
+
+{
+    "userId": 100,
+    "role": "gdo" 
+}
+
+###
+
+# get all users
+
+GET http://localhost:4000/super-admin/all-users
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJSb2xlIjoic3VwZXJBZG1pbiIsImlhdCI6MTY3ODg4MjEwNywiZXhwIjoxNjc4OTY4NTA3fQ.7sP_PQ8Z64dapt2dyzllDxsJuj06icjQsdmLflcnT-4
+
+###
+
+# get all unassinged users
+
+GET http://localhost:4000/super-admin/unassigned-users
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJSb2xlIjoic3VwZXJBZG1pbiIsImlhdCI6MTY3ODg4MjEwNywiZXhwIjoxNjc4OTY4NTA3fQ.7sP_PQ8Z64dapt2dyzllDxsJuj06icjQsdmLflcnT-4
+
+###
+
+
+
+
+
+
+
+
+
+
+################################### GDO ROUTES #############################################
+
+
+# gdo login
+
+POST http://localhost:4000/user/login
+Content-Type: application/json
+
+{
+    "userId": 10,
+    "password": "test"
+}
+
+###
+
+#  get all projects under gdo
+# 
+GET http://localhost:4000/gdo/3/all-projects
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VyUm9sZSI6ImdkbyIsImlhdCI6MTY3ODg0MzYxMCwiZXhwIjoxNjc4OTMwMDEwfQ.riCjxJWLWGVSrCPMH-MJAuiSU48kznHRFF0WwoTxFWs
+
+###
+
+GET http://localhost:4000/gdo/gdoId/3/detailed-project-view/project/1
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VyUm9sZSI6ImdkbyIsImlhdCI6MTY3ODg1MjI5OCwiZXhwIjoxNjc4OTM4Njk4fQ.5yBKsNP4KkpXNFkGkDI__Hv1BT3gThVcG5tqKHWxhys
+
+ 
+###
+
+POST http://localhost:4000/user/login
+Content-Type: application/json
+
+{
+    "userId": 100,
+    "password": "dummy"
+}
+
+###
+
+# GET particular project by id
+
+
+###
+
+POST http://localhost:4000/gdo/resource-request
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMCwidXNlclJvbGUiOiJnZG8iLCJpYXQiOjE2Nzg4ODMwNDUsImV4cCI6MTY3ODk2OTQ0NX0.K3pQ6FikdQZ9na46j0t6WS1CKjHbnEdTkYNUvpDlCkE
+Content-Type: application/json
+
+{
+     
+    "gdoId": 100,
+    "projectId": 11,
+    "requestdescription": "Need more 5 employees for this project!"
+}
+
+###
+
+# create project
+POST http://localhost:4000/gdo/create-project
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VyUm9sZSI6ImdkbyIsImlhdCI6MTY3ODg0MzYxMCwiZXhwIjoxNjc4OTMwMDEwfQ.riCjxJWLWGVSrCPMH-MJAuiSU48kznHRFF0WwoTxFWs
+Content-Type: application/json
+
+{
+    "projectId": 5,
+    "projectName": "xyz project",
+    "clientName": "west agile labs",
+    "clientAccountManager": "sarthak",
+    "projectStatus": "running",
+    "projectStartDate": "2023-03-14",
+    "projectEndDate": "2023-04-22",
+    "projectFitnessIndicator": "G",
+    "projectDomain": "devops",
+    "projectType": "backend",
+    "gdoId": 3,
+    "projectManager": 1
+}
+
+
+###
+
+# update project
+
+PUT http://localhost:4000/gdo/update-project/project/1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJSb2xlIjoiZ2RvIiwiaWF0IjoxNjc4NzcyMjE1LCJleHAiOjE2Nzg4NTg2MTV9.AvFbTxEkxW5vjPuZYgO_K9QcG5Tj--ikR6pvbsNateo
+Content-Type: application/json
+
+{
+    "projectId": 1,
+    "projectName": "pulse2 project",
+    "clientName": "west agile labs",
+    "clientAccountManager": "shreya",
+    "projectStatus": "running",
+    "projectStartDate": "2023-03-14",
+    "projectEndDate": "2023-04-14",
+    "projectFitnessIndicator": "G",
+    "projectDomain": "backend",
+    "projectType": "backend",
+    "gdoId": 3,
+    "projectManager": 1
+}
+
+###
+
+# assign project to employee
+
+POST http://localhost:4000/gdo/assign-project
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMCwidXNlclJvbGUiOiJnZG8iLCJpYXQiOjE2Nzg4ODMwNDUsImV4cCI6MTY3ODk2OTQ0NX0.K3pQ6FikdQZ9na46j0t6WS1CKjHbnEdTkYNUvpDlCkE
+Content-Type: application/json
+
+{
+      "id": 11,
+      "projectId": 11,
+      "resourceName": "akash",
+      "role": "developer",
+      "startDate": "2023-03-13",
+      "endDate": "2023-03-15",
+      "status": true,
+      "billingStatus": "billed",
+      "exposedToCustomer": true,
+      "allocationType": "permenant"
+}
+
+###
+
+# delete employee by gdo
+DELETE http://localhost:4000/gdo/delete-member/1
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJSb2xlIjpudWxsLCJpYXQiOjE2Nzg3MjYyNTQsImV4cCI6MTY3ODgxMjY1NH0.58SM91XcE0SvLj1RuLwbyB2MYM9dsMm2wCsmoGJe5r0
+
+###
+
+# raise an update project by id
+
+PUT http://localhost:4000/gdo/raise-project-update/project/1
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsInVzZXJSb2xlIjoicHJvamVjdE1hbmFnZXIiLCJpYXQiOjE2Nzg4ODM1OTksImV4cCI6MTY3ODk2OTk5OX0.z1aOkk9tFGWfZ1whowd0kV0LoPVCtkZ65sG7SkZwK1U
+Content-Type: application/json
+
+{
+    "projectId": 1,
+    "projectName": "pulse2222 project",
+    "clientName": "west agile labs",
+    "clientAccountManager": "shreya",
+    "projectStatus": "running",
+    "projectStartDate": "2023-03-14",
+    "projectEndDate": "2023-04-14",
+    "projectFitnessIndicator": "G",
+    "projectDomain": "backend",
+    "projectType": "backend",
+    "gdoId": 3,
+    "projectManager": 1
+}
+
+
+###
+
+
+
+
+
+
+
+
+
+
+
+################################### SPECIAL USERS ROUTES ###################################
+
+
+POST http://localhost:4000/user/login
+Content-Type: application/json
+
+{
+    "userId": 4,
+    "password": "varun"
+}
+
+###
+
+
+# get all projects 
+
+GET http://localhost:4000/special-user/all-projects
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZXJSb2xlIjoic3BlY2lhbFVzZXIiLCJpYXQiOjE2Nzg4ODIzMTQsImV4cCI6MTY3ODk2ODcxNH0.TQHEjSVssQ_O_WxH28JxHdJIB1Mws62wcdR0503cBu0
+
+
+###
+# make more meaningful route
+# get detailed view for a project using project id
+
+GET http://localhost:4000/special-user/detailed-view/project/11
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZXJSb2xlIjoic3BlY2lhbFVzZXIiLCJpYXQiOjE2Nzg4ODIzMTQsImV4cCI6MTY3ODk2ODcxNH0.TQHEjSVssQ_O_WxH28JxHdJIB1Mws62wcdR0503cBu0
+
+
+###
+
+# SPECIAL USER CREATE PROJECT
+
+POST http://localhost:4000/special-user/create-project
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZXJSb2xlIjoic3BlY2lhbFVzZXIiLCJpYXQiOjE2Nzg4ODIzMTQsImV4cCI6MTY3ODk2ODcxNH0.TQHEjSVssQ_O_WxH28JxHdJIB1Mws62wcdR0503cBu0
+Content-Type: application/json
+
+{
+    "projectId": 11,
+    "projectName": "aws project",
+    "clientName": "west agile labs",
+    "clientAccountManager": "sarthak",
+    "projectStatus": "running",
+    "projectStartDate": "2023-03-14",
+    "projectEndDate": "2023-04-22",
+    "projectFitnessIndicator": "G",
+    "projectDomain": "devops",
+    "projectType": "backend",
+    "gdoId": 100,
+    "projectManager": 10
+}
+ 
+###
+
+# update project
+
+
+###
+GET http://localhost:4000/special-user/all-resource-requests
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZXJSb2xlIjoic3BlY2lhbFVzZXIiLCJpYXQiOjE2Nzg4MTc1MDMsImV4cCI6MTY3ODkwMzkwM30.ZaAuZ0oNNaYpp4qN3HQ3QYibBAAgRWFVwN6S-oqFErU
+
+###
+
+
+POST http://localhost:4000/user/login
+Content-Type: application/json
+
+{
+    "userId": 4,
+    "password": "varun"
+}
+
+###
+
+PUT http://localhost:4000/special-user/update-project/project/1
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZXJSb2xlIjoic3BlY2lhbFVzZXIiLCJpYXQiOjE2Nzg3NzM2ODAsImV4cCI6MTY3ODg2MDA4MH0.K6HQCD9P0x-OS_bJFNrtDT5ra6hm4gDTJC49zQ18Zkw
+Content-Type: application/json
+
+{
+    "projectId": 1,
+    "projectName": "pulse2 project",
+    "clientName": "west agile labs",
+    "clientAccountManager": "shreya",
+    "projectStatus": "running",
+    "projectStartDate": "2023-03-14",
+    "projectEndDate": "2023-04-14",
+    "projectFitnessIndicator": "G",
+    "projectDomain": "backend",
+    "projectType": "backend",
+    "gdoId": 3,
+    "projectManager": 1
+}
+
+
+###
+
+# delete project by id
+
+DELETE http://localhost:4000/special-user/delete-project/project/11
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZXJSb2xlIjoic3BlY2lhbFVzZXIiLCJpYXQiOjE2Nzg4ODIzMTQsImV4cCI6MTY3ODk2ODcxNH0.TQHEjSVssQ_O_WxH28JxHdJIB1Mws62wcdR0503cBu0
+
+
+###
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+################################### PROJECT MANAGER ROUTES ###################################
+
+# all projects under project manager
+
+
+POST http://localhost:4000/user/login
+Content-Type: application/json
+
+{
+    "userId": 5,
+    "password": "riya"
+}
+
+###
+
+GET http://localhost:4000/project-manager/projects-under-project-manager/1
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsInVzZXJSb2xlIjoicHJvamVjdE1hbmFnZXIiLCJpYXQiOjE2Nzg3OTYzOTUsImV4cCI6MTY3ODg4Mjc5NX0.OD489ZARpF0p312eWNtq8cN-EDzm912R0cfIZle-DrA
+
+
+###
+
+# get detailed view of a project
+GET  http://localhost:4000/project-manager/detailed-project-view/project/2
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsInVzZXJSb2xlIjoicHJvamVjdE1hbmFnZXIiLCJpYXQiOjE2Nzg3NzgyNDIsImV4cCI6MTY3ODg2NDY0Mn0.Mfg2Da0zK8fF5qmfeXl_Mb3OQuSyHWTeNleRK50ibY4
+
+###
+
+
+# raise a concern
+
+POST http://localhost:4000/project-manager/raise-project-concern/project/1
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsInVzZXJSb2xlIjoicHJvamVjdE1hbmFnZXIiLCJpYXQiOjE2Nzg3OTY2NjIsImV4cCI6MTY3ODg4MzA2Mn0.pr92VdA-E4KsV8TuK3SpwqPqxaeV7BPyUrrEMlwWQ5I
+Content-Type: application/json
+
+{
+	"projectId": 4,
+	"concernDescription": "somethingdfdf",
+	"raisedBy": "riya",
+	"raisedOn": "2023-02-23",
+	"severityOfConcern": "moderate",
+	"raisedInternally": true,
+	"status": "active",
+	"concernMitigationDate": "2023-02-28",
+	"projectManager": 5
+
+}
+
+###
+
+# update a project concern 
+
+DELETE  http://localhost:4000/project-manager/update-project-concern/project/2
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsInVzZXJSb2xlIjoicHJvamVjdE1hbmFnZXIiLCJpYXQiOjE2Nzg3NzgyNDIsImV4cCI6MTY3ODg2NDY0Mn0.Mfg2Da0zK8fF5qmfeXl_Mb3OQuSyHWTeNleRK50ibY4
+
+
+###
+
+# delete a project concern
+
+DELETE http://localhost:4000/project-manager/delete-project-concern/project/2
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsInVzZXJSb2xlIjoicHJvamVjdE1hbmFnZXIiLCJpYXQiOjE2Nzg3NzgyNDIsImV4cCI6MTY3ODg2NDY0Mn0.Mfg2Da0zK8fF5qmfeXl_Mb3OQuSyHWTeNleRK50ibY4
+
