@@ -2,16 +2,16 @@
 const express = require("express");
 
 // calling router function on epxress
-const projectManager = express.Router(); 
+const projectManager = express.Router();
 
 // importing controllers
-const {  
+const {
   allProjectsUnderProjectManager,
-  detailedProjectView, 
+  detailedProjectView,
   deleteProjectConcern,
   raiseProjectConcern,
   udpateProjectConcern,
- 
+  raiseProjectUpdate,
 } = require("../controllers/projectManager.controller");
 
 // routes for project manager
@@ -23,16 +23,13 @@ projectManager.get(
 );
 
 // get detailed view of project
-projectManager.get(
-  "/detailed-project-view/project/:id",
-  detailedProjectView
-);
+projectManager.get("/detailed-project-view/project/:id", detailedProjectView);
 
 // raise a concern for a project
-projectManager.post(
-  "/raise-project-concern/project/:id",
-  raiseProjectConcern
-);
+projectManager.post("/raise-project-concern/project/:id", raiseProjectConcern);
+
+// raise a update for a project
+projectManager.post("/raise-project-update/project/:id", raiseProjectUpdate);
 
 // update a project concern
 projectManager.put(
@@ -42,10 +39,9 @@ projectManager.put(
 
 // delete a project concern
 projectManager.delete(
-  "/delete-project-concern/project/:id",
+  "/delete-project-concern/:id",
   deleteProjectConcern
 );
- 
 
 // exporting project manager api
 module.exports = projectManager;

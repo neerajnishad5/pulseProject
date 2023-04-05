@@ -113,10 +113,17 @@ const detailedProjectView = expressAsyncHandler(async (req, res) => {
       },
     ],
   });
+
+  let singleProject = await Project.findOne({
+    where: {
+      projectId: id,
+      status: true,
+    },
+  });
   // sending back response
   res
     .status(200)
-    .send({ Message: "detailed project view!", payload: detailView });
+    .send({ Message: "detailed project view!", payload: detailView, singleProject: singleProject });
 });
 /*
 // delete  a project update
@@ -134,17 +141,17 @@ const deleteProjectUpdate = expressAsyncHandler(async (req, res) => {
 
 // delete project concern
 const deleteProjectConcern = expressAsyncHandler(async (req, res) => {
-  // getting id
+  // getting concern id
   const id = req.params.id;
 
   // deleting project concern by id
   await ProjectConcern.destroy({
     where: {
-      projectId: id,
+      id: id,
     },
   });
   // sending back response
-  res.status(200).send({ Message: "Project concern delted!" });
+  res.status(200).send({ Message: "Project concern deleted!" });
 });
 
 // update project concern
@@ -164,9 +171,14 @@ const udpateProjectConcern = expressAsyncHandler(async (req, res) => {
 
 // raise a project concern
 const raiseProjectConcern = expressAsyncHandler(async (req, res) => {
-  // getting all the data from bdoy
-  const { projectId, concernDescription, raisedBy, severityOfConcern } =
-    req.body;
+  // getting all the data from body
+  const {
+    projectId,
+    concernDescription,
+    raisedBy,
+    severityOfConcern,
+    projectManager,
+  } = req.body;
 
   // adding data to the project concern table
   const data = req.body;
@@ -175,22 +187,22 @@ const raiseProjectConcern = expressAsyncHandler(async (req, res) => {
 
   // defining mail object and calling transport function on nodemailer
   var mail = nodemailer.createTransport({
-    service: "gmail",
+    service: process.env.SERVICE,
     auth: {
-      user: "neerajnishad5@gmail.com",
+      user: process.env.SENDER_EMAIL,
       pass: process.env.EMAIL_PASSWORD,
     },
   });
 
   // providing necessary details
   let mailOptions = {
-    from: process.env.FROM_EMAIL,
-    to: process.env.TO_EMAIL,
+    from: process.env.SENDER_EMAIL,
+    to: process.env.TO_MAIL,
     subject: `Project concern raised for project: ${projectId} by ${raisedBy}`,
     text: `Hi Admin,
-     Project concern raised: 
+     Project concern raised by ${raisedBy}.
      Concern description: ${concernDescription}
-     severity: ${severityOfConcern}`,
+     Severity: ${severityOfConcern}`,
   };
 
   // calling sendMail function on mail object
@@ -203,7 +215,21 @@ const raiseProjectConcern = expressAsyncHandler(async (req, res) => {
     }
   });
 
+  // sending response back
   res.status(201).send({ Messsage: "Project concern raised!" });
+});
+
+// raise project update
+const raiseProjectUpdate = expressAsyncHandler(async (req, res) => {
+  // get data from body
+  // let id = req.params.id;
+  let updates = req.body;
+
+  // add data to project update table
+  await ProjectUpdate.create(updates);
+
+  // sending back response
+  res.send({ Message: "Project updated posted!", payload: updates });
 });
 
 // exporting all controllers
@@ -213,6 +239,7 @@ module.exports = {
   deleteProjectConcern,
   raiseProjectConcern,
   udpateProjectConcern,
+  raiseProjectUpdate,
   // updateProject,
   // deleteProjectUpdate,
 };

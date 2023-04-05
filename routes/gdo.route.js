@@ -4,17 +4,18 @@ const express = require("express");
 // calling router function on epxress
 const gdo = express.Router();
 
-
 // importing controllers
 const {
   allProjectsUnderGdo,
   deleteMember,
   makeResourceRequest,
   updateMember,
-  assignProjectToEmployee, 
+  assignProjectToEmployee,
   detailedProjectView,
   createProject,
-  raiseProjectUpdate
+  raiseProjectUpdate,
+  updateProject,
+  deleteProjectConcern,
 } = require("../controllers/gdo.controller");
 
 // get all projects under gdo
@@ -33,13 +34,22 @@ gdo.delete("/delete-member/:id", deleteMember);
 gdo.post("/assign-project", assignProjectToEmployee);
 
 // get detailed project view
-gdo.get("/gdoId/:gdoId/detailed-project-view/project/:projectId", detailedProjectView);
+gdo.get(
+  "/gdoId/:gdoId/detailed-project-view/project/:projectId",
+  detailedProjectView
+);
 
 // create a project route
-gdo.post("/create-project", createProject)
+gdo.post("/create-project", createProject);
 
 // raise a project update
-gdo.put("/raise-project-update", raiseProjectUpdate)
+gdo.put("/raise-project-update", raiseProjectUpdate);
+
+// update a project
+gdo.put("/update-project/project/:id", updateProject);
+
+// delete project concern by id
+gdo.delete("/delete-project-concern/:id", deleteProjectConcern);
 
 // exporting gdo api
 module.exports = gdo;

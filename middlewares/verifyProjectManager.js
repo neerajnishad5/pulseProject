@@ -26,7 +26,7 @@ exports.verifyProjectManger = expressAsyncHandler(async (req, res, next) => {
       if (decodedToken.userRole == "projectManager") {
         next();
       } else {
-        // sending back unauthorize access 
+        // sending back unauthorize access
         res.status(401).send({ Message: "Unauthorize Access" });
       }
     } catch (err) {
@@ -34,4 +34,4 @@ exports.verifyProjectManger = expressAsyncHandler(async (req, res, next) => {
       res.status(440).send({ Message: "Session Expired  login again!" });
     }
   }
-}); 
+});

@@ -14,11 +14,12 @@ const assignRole = expressAsyncHandler(async (req, res) => {
   const find = await User.findOne({
     where: {
       userId: userId,
+ 
     },
   });
 
   // if not found user not exist
-  if (find == undefined) {
+  if (find == null) {
     res.status(204).send({ Message: "User doesn't exist!" });
   } else {
     // if found update the user role
@@ -32,9 +33,11 @@ const assignRole = expressAsyncHandler(async (req, res) => {
         },
       }
     );
+    find.role = role;
+    console.log("find log", find);
 
     // send back response
-    res.status(200).send({ Message: `User ${userId} assigned ${role}!` });
+    res.status(200).send({ Message: `User ${userId} assigned ${role}!`, payload: find });
   }
 });
 
@@ -46,6 +49,8 @@ const getAllUsers = expressAsyncHandler(async (req, res) => {
       exclude: ["password"],
     },
   });
+
+  console.log("print data",data);
 
   // send back response
   res.status(200).send({ Message: "All users!", payload: data });

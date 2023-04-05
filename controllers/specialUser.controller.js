@@ -57,7 +57,7 @@ const getAllProjects = expressAsyncHandler(async (req, res) => {
       status: true,
     },
     attributes: {
-      exclude: ["status", "gdoId"],
+      exclude: ["status"],
     },
   });
 
@@ -89,7 +89,7 @@ const updateProject = expressAsyncHandler(async (req, res) => {
 const deleteProject = expressAsyncHandler(async (req, res) => {
   // get id  from parameters
   const id = req.params.projectId;
-  
+
   // soft delete project
   const updateCount = await Project.update(
     {
@@ -124,29 +124,63 @@ const detailedProjectView = expressAsyncHandler(async (req, res) => {
       {
         association: Project.ProjectUpdate,
       },
-      
+
       {
         association: Project.ProjectTeamComposition,
+      },
+      {
+        association: Project.ProjectConcern,
       },
     ],
   });
 
-  // sending back response
-  res.status(200).send({
-    Message: "Project detailed view!",
-    payload: detailView,
+  let singleProject = await Project.findOne({
+    where: {
+      projectId: id,
+      status: true,
+    },
   });
+
+  // sending back response
+
+  if (detailView != null) {
+    res.status(200).send({
+      Message: "Project detailed view!",
+      payload: detailView,
+      singleProject: singleProject,
+    });
+  }
 });
 
 // get resource request  for a project
 const allResourceRequestForProject = expressAsyncHandler(async (req, res) => {
   // get project id from parameters
-  const id = req.params.projectId;
+  // const id = req.params.projectId;
 
   // get all the requests from resource request table
   const requests = await ResourceRequest.findAll();
   // sending back response
   res.status(200).send({ Message: "Resource requests!", payload: requests });
+});
+
+// DELETE RESOURCE REQUEST
+const deleteResourceRequest = expressAsyncHandler(async (req, res) => {
+  // getting request id from parameters
+  const requestId = req.params.id;
+
+  // getting the deleted row count
+  const deleteCount = await ResourceRequest.destroy({
+    where: {
+      id: requestId,
+    },
+  });
+
+  // sending back response
+  if (deleteCount > 0) {
+    res.status(200).send({ Message: "Resource request deleted!" });
+  } else {
+    res.send(200).send({ Message: "Resource request not deleted!" });
+  }
 });
 
 // exporting all the controllers
@@ -157,4 +191,5 @@ module.exports = {
   deleteProject,
   detailedProjectView,
   allResourceRequestForProject,
+  deleteResourceRequest
 };

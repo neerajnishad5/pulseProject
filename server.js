@@ -4,17 +4,29 @@ const express = require("express");
 // creating express application
 const app = express();
 
+// cors
+const cors = require("cors");
+app.use(cors());
+
+// CONNECTING BUILD OF REACT APP WITH NODEJS WEB SERVER
+const path = require("path");
+app.use(express.static(path.join(__dirname, "../build")));
+
 // importing body parser
 app.use(express.json());
 
 // importing sequelize
 const sequelize = require("./db/db.config");
 
+// importing helmet module to secure app by setting various HTTP headers
+const helmet = require("helmet");
+app.use(helmet())
+
 // dotenv
 require("dotenv").config();
 
 // specifying the port
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
 
 // checking database connection with sequelize
 sequelize
@@ -23,7 +35,7 @@ sequelize
   .catch((err) => console.log(err));
 
 // creating tables : calling sync method
-sequelize.sync();
+sequelize.sync({});
 
 // importing verification token for project manager
 const { verifyProjectManger } = require("./middlewares/verifyProjectManager");
@@ -57,7 +69,12 @@ app.use("/special-user", verifySpecialUser, specialUser);
 
 // project manager api middleware
 const projectManager = require("./routes/projectManager.route");
-// app.use("/project-manager", verifyProjectManger, projectManager);
+app.use("/project-manager", verifyProjectManger, projectManager);
+
+// PAGE REFRESH HANDLER -> when refresh the page it shouldn't show cannot get or wrong path middleware rather show index.htm file in build
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, "../build/index.html"));
+});
 
 // invalid path
 app.use("*", (req, res) => {
@@ -71,5 +88,5 @@ app.use((err, req, res, next) => {
 // listening to port
 app.listen(port, () => console.log(`Server running @ ${port}!`));
 
-
+// export app
 module.exports = app;

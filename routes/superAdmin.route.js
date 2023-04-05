@@ -1,10 +1,8 @@
 // import express library
 const express = require("express");
 
-
 // calling router function on epxress
 const superAdmin = express.Router();
-
 
 // importing all the controllers
 const {
@@ -17,8 +15,9 @@ const {
 superAdmin.put("/assign-role", assignRole);
 
 // get all users route
-superAdmin.get("/all-users", getAllUsers);
-
+superAdmin.get("/all-users", getAllUsers); 
+ 
+ 
 // get all unassigned users route
 superAdmin.get("/unassigned-users", unassignedUsers);
 

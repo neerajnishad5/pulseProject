@@ -48,6 +48,7 @@ const allProjectsUnderGdo = expressAsyncHandler(async (req, res) => {
   let projects = await Project.findAll({
     where: {
       gdoId: id,
+      status: true,
     },
   });
 
@@ -58,6 +59,7 @@ const allProjectsUnderGdo = expressAsyncHandler(async (req, res) => {
     res.status(200).send({
       message: "All projects for GDO!",
       payload: projects,
+      gdoId: id,
     });
   }
 });
@@ -72,7 +74,7 @@ const updateMember = expressAsyncHandler(async (req, res) => {
   let id = req.params.id;
 
   // update record in team table
-  await TeamComposition.update(data, {
+  await ProjectTeamComposition.update(data, {
     where: {
       id: id,
     },
@@ -84,7 +86,7 @@ const updateMember = expressAsyncHandler(async (req, res) => {
 const deleteMember = expressAsyncHandler(async (req, res) => {
   // get employee id from parameters
   let id = req.params.id;
-  let updateCount = await TeamComposition.destroy({
+  let updateCount = await ProjectTeamComposition.destroy({
     where: {
       id: id,
     },
@@ -121,55 +123,35 @@ const detailedProjectView = expressAsyncHandler(async (req, res) => {
       {
         association: Project.ProjectTeamComposition,
       },
+      {
+        association: Project.ProjectUpdate,
+      },
     ],
   });
 
   /*
+    get two previous 2 weeks updates for project   
+*/
 
-  // get two previous 2 weeks updates for project
-
-  const today = new Date();
-  const twoWeeksBack = date.setDate(date.getDate() - 14);
-
-  const projectUpdatesForTwoWeeks = await detailView.getProjectUpdate({
+  let singleProject = await Project.findOne({
     where: {
-      date: {
-        [Op.between]: [twoWeeksBack, today],
-      },
+      projectId: id,
+      status: true,
     },
   });
 
-  // get Project Fitness, Concerns Indicator, Team members (Billed Count) for the project
-
-  // get project fitness indicator
-  const projectFitness = detailView.dataValues.projectFitnessIndicator;
-
-  //get all project concern
-  let concernsCount = 0;
-  detailView.dataValues.projectConcern.forEach((concern) => {
-    if (concern.status == "pending") {
-      concernsCount++;
-    }
-  });
-*/
-  // sending back response
-
+  console.log("detail viewprint", detailView);
   // no project found
-  if (detailView.length == 0) {
+  if (detailView == null) {
     res.status(204).send({
       Message: "No project to display!",
     });
   } else {
-    res
-      .status(200)
-      .send({ Message: "Project detailed view!", payload: detailView });
-    /*
     res.status(200).send({
-      Message: `Project detailed view for Project ID: ${id}!
-      Fitness Indicator: ${projectFitness}
-      Concerns: ${concernsCount}`,
+      Message: "Project detailed view!",
       payload: detailView,
-    });*/
+      singleProject: singleProject,
+    });
   }
 });
 
@@ -194,6 +176,43 @@ const raiseProjectUpdate = expressAsyncHandler(async (req, res) => {
   res.send({ Message: "Project updated posted!", payload: updates });
 });
 
+// update a project
+
+const updateProject = expressAsyncHandler(async (req, res) => {
+  // getting project id from parameters
+  const projectId = req.params.id;
+
+  // getting update count
+  const updateCount = await Project.update(req.body, {
+    where: {
+      projectId: projectId,
+    },
+  });
+
+  // sending back response
+  if (updateCount > 0) {
+    res.status(200).send({ Message: "Project updated!" });
+  } else if (updateCount == 0) {
+    res.status(200).send({ Message: "Project not modified!" });
+  }
+});
+
+// DELETE PROJECT CONCERN
+
+const deleteProjectConcern = expressAsyncHandler(async (req, res) => {
+  // getting id
+  const id = req.params.id;
+
+  // deleting project concern by id
+  await ProjectConcern.destroy({
+    where: {
+      id: id,
+    },
+  });
+  // sending back response
+  res.status(200).send({ Message: "Project concern deleted!" });
+});
+
 // exporting all the controller functions
 module.exports = {
   makeResourceRequest,
@@ -204,4 +223,6 @@ module.exports = {
   detailedProjectView,
   createProject,
   raiseProjectUpdate,
+  updateProject,
+  deleteProjectConcern,
 };

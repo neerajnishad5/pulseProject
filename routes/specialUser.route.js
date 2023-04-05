@@ -1,7 +1,6 @@
 // import express library
 const express = require("express");
 
-
 // calling router function on epxress
 const specialUser = express.Router();
 
@@ -12,7 +11,8 @@ const {
   createProject,
   updateProject,
   deleteProject,
-  allResourceRequestForProject
+  allResourceRequestForProject,
+  deleteResourceRequest,
 } = require("../controllers/specialUser.controller");
 
 // routes for special user
@@ -32,7 +32,9 @@ specialUser.put("/update-project/project/:projectId", updateProject);
 // delete project route
 specialUser.delete("/delete-project/project/:projectId", deleteProject);
 
-// resource requests for a project 
+// all resource requests
 specialUser.get("/all-resource-requests", allResourceRequestForProject);
+
+specialUser.delete("/delete-resource-request/:id", deleteResourceRequest);
 
 module.exports = specialUser;

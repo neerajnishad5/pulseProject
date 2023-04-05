@@ -33,7 +33,7 @@ const register = expressAsyncHandler(async (req, res) => {
   });
 
   // find user in employee
-  if (find == undefined) {
+  if (find == null) {
     res.status(200).send({
       Message: "Not an employee!",
     });
@@ -48,8 +48,8 @@ const register = expressAsyncHandler(async (req, res) => {
       },
     });
 
-    // if user already exits
-    if (userRecord != undefined) {
+    // if user already exists
+    if (userRecord != null) {
       res.status(302).send({ Message: "User already exists!" });
     }
 
@@ -59,7 +59,7 @@ const register = expressAsyncHandler(async (req, res) => {
       let hashedPassword = await bcryptjs.hash(password, 6);
       req.body.password = hashedPassword;
       await User.create(req.body);
-      delete req.body.password
+      delete req.body.password;
       res.status(200).send({ Message: "User Registered", payload: req.body });
     }
   }
@@ -69,15 +69,17 @@ const register = expressAsyncHandler(async (req, res) => {
 
 const login = expressAsyncHandler(async (req, res) => {
   // getting data
-  const { userId, password } = req.body;
+  const { userId, email, password } = req.body;
 
   let userRecord = await User.findOne({
     where: {
-      userId: userId,
+      email: email,
     },
   });
+  // console.log("userId: user record", userRecord);
 
-  if (userRecord == undefined) {
+  // if user is null
+  if (userRecord == null) {
     res.status(204).send({ Message: "User not found!" });
   }
   // verify password
@@ -98,40 +100,46 @@ const login = expressAsyncHandler(async (req, res) => {
           expiresIn: 86400,
         }
       );
+
+      // sending back response
       res.status(200).send({
         Message: "Login successful!",
-        payload: signedToken,
+        token: signedToken,
+        user: userRecord,
       });
     }
   }
 });
 
-const otps = {};
+
+// object to store otp
+let otps = {};
 
 const forgotPassword = expressAsyncHandler(async (req, res) => {
   const { email } = req.body;
 
   // generate random otp
-  const otp = Math.floor(100000 + Math.random() * 900000);
+  let otp = Math.floor(100000 + Math.random() * 900000);
 
   // saving otp to email object
   otps[email] = otp;
   var mail = nodemailer.createTransport({
-    service: "gmail",
+    service: process.env.SERVICE,
     auth: {
-      user: "neerajnishad5@gmail.com",
+      user: process.env.SENDER_EMAIL,
       pass: process.env.EMAIL_PASSWORD,
     },
   });
 
   // providing necessary details for mail
   var mailOptions = {
-    from: "neerajnishad5@gmail.com",
-    to: "thesnippetguy@gmail.com",
-    subject: "Reset Password OTP",
-    text: "OTP for account password reset: " + otp,
+    from: process.env.SENDER_EMAIL,
+    to: process.env.TO_MAIL,
+    subject: "RESET PASSWORD | Pulse received a request to reset your password",
+    text: `Hi ${email}, your OTP for resetting your password: ${otp}.\nIf you didn't request a password reset, you can ignore this email. Your password will not be changed. Thank you, PULSE`,
   };
 
+  // sending mail and catching error
   mail.sendMail(mailOptions, function (error, info) {
     if (error) {
       console.log("Error occured: " + error);
@@ -139,14 +147,17 @@ const forgotPassword = expressAsyncHandler(async (req, res) => {
       console.log("Email sent!");
     }
   });
+
+  // sending back otp
   res.status(200).send({ Message: "OTP has been sent!", payload: otp });
 });
 
 const resetPassword = expressAsyncHandler(async (req, res) => {
   // getting otp and password
-  const { email, otp, password } = req.body;
+  let { email, otp, password } = req.body;
 
-  if (otp === otps[email]) {
+  // if otp matched then create password and save to db
+  if (otp == otps[email]) {
     const hashedPassword = await bcryptjs.hash(password, 7);
     let updateCount = await User.update(
       {
@@ -158,9 +169,12 @@ const resetPassword = expressAsyncHandler(async (req, res) => {
         },
       }
     );
+
+    // sending back password reset complete response
     res.status(200).send({ Message: "Password reset complete!" });
   } else {
-    res.status(304).send({ Message: "Password not reset!" });
+    // sending password not reset message
+    res.status(200).send({ Message: "Password not reset!" });
   }
 });
 
