@@ -207,6 +207,8 @@ Content-Type: application/json
 
 ###
 
+
+
 # ASSIGN A PROJECT TO EMPLOYEE
 
 POST http://localhost:5000/gdo/assign-project
@@ -228,11 +230,17 @@ Content-Type: application/json
 
 ###
 
+
+
+
 # DELETE EMPLOYEE FROM PROJECT TEAM
 DELETE http://localhost:5000/gdo/delete-member/1
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJSb2xlIjpudWxsLCJpYXQiOjE2Nzg3MjYyNTQsImV4cCI6MTY3ODgxMjY1NH0.58SM91XcE0SvLj1RuLwbyB2MYM9dsMm2wCsmoGJe5r0
 
 ###
+
+
+
 
 # RAISE A PROJECT UPDATE
 
@@ -256,6 +264,9 @@ Content-Type: application/json
 }
 
 ###
+
+
+
 
 # DELETE PROJECT CONCERN
 
@@ -292,6 +303,8 @@ Content-Type: application/json
 ###
 
 
+
+
 # ALL PROJECTS
 
 GET http://localhost:5000/special-user/all-projects
@@ -300,12 +313,16 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsInVzZ
 
 ###
  
+
+ 
 # DETAILED PROJECT VIEW BY PROJECT ID
 GET http://localhost:5000/special-user/detailed-view/project/5
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsInVzZXJSb2xlIjoic3BlY2lhbFVzZXIiLCJpYXQiOjE2ODA1MTg4MzEsImV4cCI6MTY4MDYwNTIzMX0.4IhskNCUAbtIaexmQcNZcXj_Ot62VNqTzsUB42nNV0k
 
 
 ###
+
+
 
 # SPECIAL USER CREATE PROJECT
 
@@ -330,6 +347,8 @@ Content-Type: application/json
  
 ###
 
+
+
 # ALL RESOURCE REQUESTS
 
 ###
@@ -337,6 +356,8 @@ GET http://localhost:5000/special-user/all-resource-requests
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsInVzZXJSb2xlIjoic3BlY2lhbFVzZXIiLCJpYXQiOjE2ODA2Nzc0OTksImV4cCI6MTY4MDc2Mzg5OX0.53wGEm_I9ICSL1P5NL-v-N6WF8CWjsK3uoliLMPjAHw
 
 ###
+
+
 
 
 POST http://localhost:5000/user/login
@@ -348,6 +369,8 @@ Content-Type: application/json
 }
 
 ###
+
+
 
 # UPDATE A PROJECT
 PUT http://localhost:5000/special-user/update-project/project/1
@@ -372,6 +395,8 @@ Content-Type: application/json
 
 ###
 
+
+
 # DELETE A PROJECT BY PROJECT ID
 
 DELETE http://localhost:5000/special-user/delete-project/project/11
@@ -381,6 +406,7 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZ
 ###
 
 
+# DELETE RESOURCE REQUEST
 DELETE http://localhost:5000/special-user/delete-resource-request/5
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsInVzZXJSb2xlIjoic3BlY2lhbFVzZXIiLCJpYXQiOjE2ODA2Nzc0OTksImV4cCI6MTY4MDc2Mzg5OX0.53wGEm_I9ICSL1P5NL-v-N6WF8CWjsK3uoliLMPjAHw
 
@@ -414,6 +440,8 @@ Content-Type: application/json
 
 ###
 
+
+
 # GET PROJECTTS UNDER PROJECT MANAGER
 
 GET http://localhost:5000/project-manager/projects-under-project-manager/7
@@ -422,12 +450,16 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsInVzZ
 
 ###
 
+
+
 # GET DETAILED VIEW OF A PROJECT
 
 GET  http://localhost:5000/project-manager/detailed-project-view/project/1
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZXJSb2xlIjoicHJvamVjdE1hbmFnZXIiLCJpYXQiOjE2ODA0MTQ4NjgsImV4cCI6MTY4MDUwMTI2OH0.OzHz3FMcHDF4Zt3EIR4wN26Z0aNaTX0k-OnSA7_vYHI
 
 ###
+
+
 
 
 # RAISE PROJECT CONCERN
@@ -450,6 +482,8 @@ Content-Type: application/json
 }
 
 ###
+
+
 
 # RAISE PROJECT UPDATE
 
