@@ -41,7 +41,7 @@ Content-Type: application/json
 
 # USER PASSWORD RESET
 
-PUT http://localhost:5000/user/reset-password/mohit@westagilelab.com/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vaGl0QHdlc3RhZ2lsZWxhYi5jb20iLCJpYXQiOjE2ODA3ODM5NjksImV4cCI6MTY4MDc4NDg2OX0.bGNmwdcyQNqPNepWpVY3-V0tPnUAJfaHKlQs0N90ZEs
+PUT http://localhost:5000/user/reset-password/mohit@westagilelab.com/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vaGl0QHdlc3RhZ2lsZWxhYi5jb20iLCJpYXQiOjE2ODA3ODQzMzIsImV4cCI6MTY4MDc4NTIzMn0.wDAdlXv35nIosKPduoZWUkbNSeSKSp2b3VycgtTLhOE
 Content-Type: application/json
 
 {

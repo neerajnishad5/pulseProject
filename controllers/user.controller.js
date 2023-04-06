@@ -22,10 +22,12 @@ const { Employee } = require("../models/employee.model");
 // importing dot environment file
 require("dotenv").config();
 
+//  USER REGISTER
 const register = expressAsyncHandler(async (req, res) => {
   // getting the data
   let { userId, email, password } = req.body;
 
+  // finding employee by userId
   let find = await Employee.findOne({
     where: {
       id: userId,
@@ -65,12 +67,13 @@ const register = expressAsyncHandler(async (req, res) => {
   }
 });
 
-// login controller
+// USER LOGIN
 
 const login = expressAsyncHandler(async (req, res) => {
   // getting data
   const { email, password } = req.body;
 
+  //  finding whether employee with email exist
   let userRecord = await User.findOne({
     where: {
       email: email,
@@ -84,9 +87,11 @@ const login = expressAsyncHandler(async (req, res) => {
   }
   // verify password
   else {
+    // comparing password with db password
     let pass = await bcryptjs.compare(password, userRecord.dataValues.password);
     // if password not matched
     if (!pass) {
+      // if password not true sending response
       res.status(400).send({ Message: "Incorrect password" });
     } else {
       // signed token
@@ -111,6 +116,7 @@ const login = expressAsyncHandler(async (req, res) => {
   }
 });
 
+// USER FORGOT PASSWORD
 const forgotPassword = expressAsyncHandler(async (req, res) => {
   const { email } = req.body;
 
@@ -127,19 +133,22 @@ const forgotPassword = expressAsyncHandler(async (req, res) => {
     res.status(200).send({ Message: "User not found!" });
   } else {
     // if user exist create a one time link valid for 15 mins
-    const secret = process.env.SECRET_KEY + findUser.password;
+
     const payload = {
       email: email,
     };
 
     // generating token from JWT
-    const token = jwt.sign(payload, secret, { expiresIn: "15m" });
+    const token = jwt.sign(payload, process.env.SECRET_KEY, {
+      expiresIn: "15m",
+    });
     // console.log("Token generated: ", token);
 
     // generating link from token
     const link = `http://localhost:3000/reset-password/${findUser.email}/${token}`;
     // console.log("Link generated:", link);
 
+    // initializing mail
     var mail = nodemailer.createTransport({
       service: process.env.SERVICE,
       auth: {
@@ -173,24 +182,28 @@ const forgotPassword = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//  USER RESET PASSWORD
 const resetPassword = expressAsyncHandler(async (req, res) => {
   // getting email and token
   let { email, token } = req.params;
   let { password } = req.body;
 
+  // finding user by email if exists
   const findUser = await User.findOne({
     where: {
       email: email,
     },
   });
 
-  const secret = process.env.SECRET_KEY + findUser.password;
   try {
     // getting the original payload from jwt if token is valid
-    const payload = jwt.verify(token, secret);
+    const payload = jwt.verify(token, process.env.SECRET_KEY);
 
+    // checking if mail is same as db
     if (payload.email === findUser.email) {
       const hashedPassword = await bcryptjs.hash(password, 7);
+
+      // updating password
       let updateCount = await User.update(
         {
           password: hashedPassword,
