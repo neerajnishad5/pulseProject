@@ -9,8 +9,8 @@ const cors = require("cors");
 app.use(cors());
 
 // CONNECTING BUILD OF REACT APP WITH NODEJS WEB SERVER
-const path = require("path");
-app.use(express.static(path.join(__dirname, "../build")));
+// const path = require("path");
+// app.use(express.static(path.join(__dirname, "../build")));
 
 // importing body parser
 app.use(express.json());
@@ -72,9 +72,9 @@ const projectManager = require("./routes/projectManager.route");
 app.use("/project-manager", verifyProjectManger, projectManager);
 
 // PAGE REFRESH HANDLER -> when refresh the page it shouldn't show cannot get or wrong path middleware rather show index.htm file in build
-app.use((req, res) => {
-  res.sendFile(path.join(__dirname, "../build/index.html"));
-});
+// app.use((req, res) => {
+//   res.sendFile(path.join(__dirname, "../build/index.html"));
+// });
 
 // invalid path
 app.use("*", (req, res) => {

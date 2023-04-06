@@ -19,7 +19,7 @@ user.post("/register", register);
 user.post("/login", login);
 
 // importing reset password controller
-user.put("/reset-password", resetPassword);
+user.put("/reset-password/:email/:token", resetPassword);
  
 // importing forgot password controller
 user.post("/forgot-password", forgotPassword);

@@ -69,7 +69,7 @@ const register = expressAsyncHandler(async (req, res) => {
 
 const login = expressAsyncHandler(async (req, res) => {
   // getting data
-  const { userId, email, password } = req.body;
+  const { email, password } = req.body;
 
   let userRecord = await User.findOne({
     where: {
@@ -111,71 +111,107 @@ const login = expressAsyncHandler(async (req, res) => {
   }
 });
 
-
-// object to store otp
-let otps = {};
-
 const forgotPassword = expressAsyncHandler(async (req, res) => {
   const { email } = req.body;
 
-  // generate random otp
-  let otp = Math.floor(100000 + Math.random() * 900000);
-
-  // saving otp to email object
-  otps[email] = otp;
-  var mail = nodemailer.createTransport({
-    service: process.env.SERVICE,
-    auth: {
-      user: process.env.SENDER_EMAIL,
-      pass: process.env.EMAIL_PASSWORD,
+  // finding user by that email exist in db or not
+  const findUser = await User.findOne({
+    where: {
+      email: email,
     },
   });
 
-  // providing necessary details for mail
-  var mailOptions = {
-    from: process.env.SENDER_EMAIL,
-    to: process.env.TO_MAIL,
-    subject: "RESET PASSWORD | Pulse received a request to reset your password",
-    text: `Hi ${email}, your OTP for resetting your password: ${otp}.\nIf you didn't request a password reset, you can ignore this email. Your password will not be changed. Thank you, PULSE`,
-  };
+  // if user doesn't exist
+  if (findUser === null) {
+    // sending back response
+    res.status(200).send({ Message: "User not found!" });
+  } else {
+    // if user exist create a one time link valid for 15 mins
+    const secret = process.env.SECRET_KEY + findUser.password;
+    const payload = {
+      email: email,
+    };
 
-  // sending mail and catching error
-  mail.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log("Error occured: " + error);
-    } else {
-      console.log("Email sent!");
-    }
-  });
+    // generating token from JWT
+    const token = jwt.sign(payload, secret, { expiresIn: "15m" });
+    console.log("Token generated: ", token);
 
-  // sending back otp
-  res.status(200).send({ Message: "OTP has been sent!", payload: otp });
+    // generating link from token
+    const link = `http://localhost:3000/reset-password/${findUser.email}/${token}`;
+    console.log("Link generated:", link);
+
+    var mail = nodemailer.createTransport({
+      service: process.env.SERVICE,
+      auth: {
+        user: process.env.SENDER_EMAIL,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+
+    // providing necessary details for mail
+    var mailOptions = {
+      from: process.env.SENDER_EMAIL,
+      to: process.env.TO_MAIL,
+      subject:
+        "RESET PASSWORD | Pulse received a request to reset your password",
+      text: `Hi ${email}, link for resetting your password: ${link}.\nIf you didn't request a password reset, you can ignore this email. Your password will not be changed. Thank you, PULSE`,
+    };
+
+    // sending mail and catching error
+    mail.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log("Error occured: " + error);
+      } else {
+        console.log("Email sent!");
+      }
+    });
+  }
+
+  // sending back response
+  res.status(200).send({ Message: "Email has been sent!" });
 });
 
 const resetPassword = expressAsyncHandler(async (req, res) => {
-  // getting otp and password
-  let { email, otp, password } = req.body;
+  // getting email and token
+  let { email, token } = req.params;
+  let { password } = req.body;
 
-  // if otp matched then create password and save to db
-  if (otp == otps[email]) {
-    const hashedPassword = await bcryptjs.hash(password, 7);
-    let updateCount = await User.update(
-      {
-        password: hashedPassword,
-      },
-      {
-        where: {
-          email: email,
+  const findUser = await User.findOne({
+    where: {
+      email: email,
+    },
+  });
+
+  const secret = process.env.SECRET_KEY + findUser.password;
+  try {
+    // getting the original payload from jwt if token is valid
+    const payload = jwt.verify(token, secret);
+
+    if (payload.email === findUser.email) {
+      const hashedPassword = await bcryptjs.hash(password, 7);
+      let updateCount = await User.update(
+        {
+          password: hashedPassword,
         },
-      }
-    );
+        {
+          where: {
+            email: email,
+          },
+        }
+      );
 
-    // sending back password reset complete response
-    res.status(200).send({ Message: "Password reset complete!" });
-  } else {
-    // sending password not reset message
-    res.status(200).send({ Message: "Password not reset!" });
+      // sending back password reset complete response
+      if (updateCount > 0) {
+        res.status(200).send({ Message: "Password reset complete!" });
+      }
+    } else {
+      // sending password not reset message
+      res.status(200).send({ Message: "Password not reset!" });
+    }
+  } catch (error) {
+    console.log("Error in resetpassword: ", error.message);
   }
 });
+ 
 
 module.exports = { login, register, resetPassword, forgotPassword };

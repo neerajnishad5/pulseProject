@@ -27,18 +27,6 @@ Content-Type: application/json
 
 ###
 
-# USER PASSWORD RESET
-
-PUT http://localhost:5000/user/reset-password
-Content-Type: application/json
-
-{
-    "email": "mohit@westagilelab.com",
-    "otp": 807168,
-    "password": "mohit1"
-}
-
-###
 
 # USER FORGOT PASSWORD
 
@@ -48,6 +36,27 @@ Content-Type: application/json
 {
     "email": "mohit@westagilelab.com"
 }
+
+###
+
+# USER PASSWORD RESET
+
+PUT http://localhost:5000/user/reset-password/mohit@westagilelab.com/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vaGl0QHdlc3RhZ2lsZWxhYi5jb20iLCJpYXQiOjE2ODA3Njc0NjYsImV4cCI6MTY4MDc2ODM2Nn0.JlrXEb-_KhKdZvbZNI9AOzSAwJpEzalqmZD_Kt14KB4
+Content-Type: application/json
+
+{
+    "password": "mohit"
+}
+
+
+### 
+
+GET http://localhost:5000/user/reset-password/mohit@westagilelab.com/token
+
+
+
+
+
 
 
 
@@ -130,7 +139,7 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsInVzZ
 
 # DETAILED VIEW OF PROJECT BY PROJECT ID
 
-GET http://localhost:5000/gdo/gdoId/5/detailed-project-view/project/10
+GET http://localhost:5000/gdo/gdoId/5/detailed-project-view/project/1
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsInVzZXJSb2xlIjoiZ2RvIiwiaWF0IjoxNjgwNjcxNTc0LCJleHAiOjE2ODA3NTc5NzR9.lkhWe-4rwDxo_IKg408abVJYcSKpJyo4_QPZiX4YaO8
 
 
@@ -400,7 +409,7 @@ Content-Type: application/json
 
 {
     "email": "projectManager@westagilelab.com",
-    "password": "vikas"
+    "password": "projectManager"
 }
 
 ###
@@ -423,14 +432,14 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZ
 
 # RAISE PROJECT CONCERN
 
-POST http://localhost:5000/project-manager/raise-project-concern/project/1
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZXJSb2xlIjoicHJvamVjdE1hbmFnZXIiLCJpYXQiOjE2ODA0MTQ4NjgsImV4cCI6MTY4MDUwMTI2OH0.OzHz3FMcHDF4Zt3EIR4wN26Z0aNaTX0k-OnSA7_vYHI
+POST http://localhost:5000/project-manager/raise-project-concern/project/10
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZXJSb2xlIjoicHJvamVjdE1hbmFnZXIiLCJpYXQiOjE2ODA2OTc0MjgsImV4cCI6MTY4MDc4MzgyOH0.u1ZN5bHzrFC9HSUerqMB3LvofFAtsE8110S2VcmE63o
 Content-Type: application/json
 
 {
-	"projectId": 1,
-	"concernDescription": "concern2",
-	"raisedBy": "asha",
+	"projectId": 10,
+	"concernDescription": "Need 5 devs",
+	"raisedBy": "Shamir",
 	"raisedOn": "2023-02-23",
 	"severityOfConcern": "moderate",
 	"raisedInternally": true,
