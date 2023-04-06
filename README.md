@@ -1,11 +1,11 @@
 # BACKEND - PROJECT PULSE
 
-### Description:-
+### INTRODUCTION
 
 WAL Pulse is a tool developed and designed to make the process of maintaining projects and managing projects, based on the pariticular roles, smooth and simpler. Project Managers, Super Admin, GDO Heads and Admin who are able to login and perform specific assignments.
 This is the exclusive backend of the project, access front-end here: https://github.com/neerajnishad5/front-end-pulse
 
-### How to Install the project
+### How to install WAL PULSE
 
 Download the git repository manually or clone it by following command
 
@@ -27,7 +27,7 @@ then start the server using below command
   npm start
 ```
 
-### Configurations
+### CONFIGURATION
 
 create `.env` folder and add the following details to the `.env` file
 
@@ -46,9 +46,9 @@ FROM_MAIL = YOUR_EMAIL
 Create database named `projectPulse`<br>
 We assume that employee table is existing in a database so create table employee(attributes:{empId,empName}) and insert data into table
 
-## Overview
+## OVERVIEW
 
-### Roles in this project:-
+### Roles in the project
 
 ```
 1. SuperAdmin
