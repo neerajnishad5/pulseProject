@@ -134,11 +134,11 @@ const forgotPassword = expressAsyncHandler(async (req, res) => {
 
     // generating token from JWT
     const token = jwt.sign(payload, secret, { expiresIn: "15m" });
-    console.log("Token generated: ", token);
+    // console.log("Token generated: ", token);
 
     // generating link from token
     const link = `http://localhost:3000/reset-password/${findUser.email}/${token}`;
-    console.log("Link generated:", link);
+    // console.log("Link generated:", link);
 
     var mail = nodemailer.createTransport({
       service: process.env.SERVICE,
@@ -154,21 +154,23 @@ const forgotPassword = expressAsyncHandler(async (req, res) => {
       to: process.env.TO_MAIL,
       subject:
         "RESET PASSWORD | Pulse received a request to reset your password",
-      text: `Hi ${email}, link for resetting your password: ${link}.\nIf you didn't request a password reset, you can ignore this email. Your password will not be changed. Thank you, PULSE`,
+      text: `Hi ${email}, link for resetting your password: ${link}.\nIf you didn't request a password reset, you can ignore this email. Your password will not be changed. Thank you, WAL PULSE`,
     };
 
     // sending mail and catching error
     mail.sendMail(mailOptions, function (error, info) {
       if (error) {
         console.log("Error occured: " + error);
+        res.status(200).send({ Message: error });
       } else {
         console.log("Email sent!");
+        // sending back response
+        res
+          .status(200)
+          .send({ Message: "Email has been sent!", link: link, token: token });
       }
     });
   }
-
-  // sending back response
-  res.status(200).send({ Message: "Email has been sent!" });
 });
 
 const resetPassword = expressAsyncHandler(async (req, res) => {
@@ -212,6 +214,5 @@ const resetPassword = expressAsyncHandler(async (req, res) => {
     console.log("Error in resetpassword: ", error.message);
   }
 });
- 
 
 module.exports = { login, register, resetPassword, forgotPassword };
