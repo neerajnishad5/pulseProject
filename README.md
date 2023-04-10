@@ -1,6 +1,6 @@
 # BACKEND - PROJECT PULSE
 
-### INTRODUCTION
+### PROJECT DESCRIPTION
 
 WAL Pulse is a tool developed and designed to make the process of maintaining projects and managing projects, based on the pariticular roles, smooth and simpler. Project Managers, Super Admin, GDO Heads and Admin who are able to login and perform specific assignments.
 This is the exclusive backend of the project, access front-end here: https://github.com/neerajnishad5/front-end-pulse
