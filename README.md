@@ -82,7 +82,7 @@ We assume that employee table is existing in a database so create table employee
 #### GDO HEAD (Global Delivery Organization)
 
 ```
- 1. Get all projects under his maintanance
+ 1. Get all projects under GDO
  2. Get detailed view of a project (Detailed overview: project fitness indicator, team and concern count, project concerns, project updates, team composition)
  3. Assign a project to employee
  4. Update a project
@@ -95,6 +95,6 @@ We assume that employee table is existing in a database so create table employee
 ```
  1. Raise project updates
  2. Raise project concerns
- 3. Get all the projects under his maintanance
+ 3. Get all the projects under project manager
  4. Get detailed view of a project (Detailed overview: project fitness indicator, team and concern count, project concerns, project updates, team composition)
 ```
