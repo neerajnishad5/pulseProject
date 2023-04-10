@@ -4,7 +4,7 @@ const express = require("express");
 // creating express application
 const app = express();
 
-// cors
+// importing cors
 const cors = require("cors");
 app.use(cors());
 

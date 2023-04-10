@@ -172,7 +172,7 @@ const forgotPassword = expressAsyncHandler(async (req, res) => {
         console.log("Error occured: " + error);
         res.status(200).send({ Message: error });
       } else {
-        console.log("Email sent!");
+        console.log("Email sent!", info.response);
         // sending back response
         res
           .status(200)

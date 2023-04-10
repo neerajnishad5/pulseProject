@@ -123,7 +123,11 @@ const detailedProjectView = expressAsyncHandler(async (req, res) => {
   // sending back response
   res
     .status(200)
-    .send({ Message: "detailed project view!", payload: detailView, singleProject: singleProject });
+    .send({
+      Message: "detailed project view!",
+      payload: detailView,
+      singleProject: singleProject,
+    });
 });
 /*
 // delete  a project update
@@ -198,11 +202,11 @@ const raiseProjectConcern = expressAsyncHandler(async (req, res) => {
   let mailOptions = {
     from: process.env.SENDER_EMAIL,
     to: process.env.TO_MAIL,
-    subject: `Project concern raised for project: ${projectId} by ${raisedBy}`,
+    subject: `PROJECT CONCERN RAISED | Project ID: ${projectId}`,
     text: `Hi Admin,
-     Project concern raised by ${raisedBy}.
+     Project concern is raised by ${raisedBy}.
      Concern description: ${concernDescription}
-     Severity: ${severityOfConcern}`,
+     Severity of concern: ${severityOfConcern}`,
   };
 
   // calling sendMail function on mail object
