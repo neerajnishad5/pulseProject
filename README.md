@@ -1,8 +1,8 @@
 # BACKEND - PROJECT PULSE
 
-### INTRODUCTION
+### PROJECT DESCRIPTION
 
-WAL Pulse is a tool developed and designed to make the process of maintaining projects and managing projects, based on the pariticular roles, smooth and simpler. Project Managers, Super Admin, GDO Heads and Admin who are able to login and perform specific assignments.
+WAL Pulse is a tool developed and designed to make the process of maintaining projects and managing projects, based on the pariticular roles, smooth and simpler. Super Admin, GDO Heads, Project Managers, and Admin who are able to login and perform specific assignments.
 This is the exclusive backend of the project, access front-end here: https://github.com/neerajnishad5/front-end-pulse
 
 ### How to install WAL PULSE
@@ -32,7 +32,7 @@ then start the server using below command
 create `.env` folder and add the following details to the `.env` file
 
 ```
-DB_NAME = YOUR_DB_NAME (Add your details)
+DB_NAME = YOUR_DB_NAME
 DB_USER = YOUR_DB_USER
 DB_PASSWORD = YOUR_DB_PASSWORD
 PORT = PORT
@@ -82,7 +82,7 @@ We assume that employee table is existing in a database so create table employee
 #### GDO HEAD (Global Delivery Organization)
 
 ```
- 1. Get all projects under his maintanance
+ 1. Get all projects under GDO
  2. Get detailed view of a project (Detailed overview: project fitness indicator, team and concern count, project concerns, project updates, team composition)
  3. Assign a project to employee
  4. Update a project
@@ -95,6 +95,6 @@ We assume that employee table is existing in a database so create table employee
 ```
  1. Raise project updates
  2. Raise project concerns
- 3. Get all the projects under his maintanance
+ 3. Get all the projects under project manager
  4. Get detailed view of a project (Detailed overview: project fitness indicator, team and concern count, project concerns, project updates, team composition)
 ```
