@@ -1,9 +1,10 @@
 // import app
 const app = require("../server");
 
+// importing supertest module
 const request = require("supertest");
 
-// TESTS FOR PROJECTMANAGER-API
+// TESTS FOR PROJECT MANAGER API
 
 // test for adding project updates by project manager
 test("project updates should be added to database", async () => {

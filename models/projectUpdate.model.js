@@ -24,6 +24,7 @@ exports.ProjectUpdate = sequelize.define(
     updateDate: {
       type: DataTypes.DATEONLY,
       allowNull: false,
+      
     },
     projectStatus: {
       type: DataTypes.STRING,

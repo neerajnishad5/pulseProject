@@ -18,7 +18,7 @@ const {
 
 //  get all projects under project manager
 projectManager.get(
-  "/projects-under-project-manager/:id",
+  "/all-projects/:id",
   allProjectsUnderProjectManager
 );
 

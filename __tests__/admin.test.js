@@ -7,7 +7,7 @@ const app = require("../server");
 // login
 test("user login", async () => {
   // act
-  let response = await request(app).post("/user-api/user/login").send({
+  let response = await request(app).post("/user/user/login").send({
     email: "ravi@westagilelab.com",
     password: "ravi",
   });
@@ -23,10 +23,10 @@ test("Get all projects by admin", async () => {
   // arrange
   // act
   let response = await request(app)
-    .get("/admin-api/admin/portfolioDashboard")
+    .get("/specialUser/all-projects")
     .set(
       "Authorization",
-      "bearer" +
+      "BEARER" +
         " eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMywidXNlclJvbGUiOiJhZG1pbiIsImlhdCI6MTY3ODUzMDcxMSwiZXhwIjoxNjc5Mzk0NzExfQ.sPAojMx1m1J8PhPIbf-1MktYQCfUzP_o1PSYOzA9XIE"
     );
 
@@ -35,7 +35,7 @@ test("Get all projects by admin", async () => {
 });
 
 // creating project test
-test("/admin-api/admin/project", async () => {
+test("/special-user/create-project", async () => {
   // arrange
   // act
   let response = await request(app)
@@ -56,7 +56,7 @@ test("/admin-api/admin/project", async () => {
     })
     .set(
       "Authorization",
-      "bearer " +
+      "BEARER " +
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMywidXNlclJvbGUiOiJhZG1pbiIsImlhdCI6MTY3ODUzMDcxMSwiZXhwIjoxNjc5Mzk0NzExfQ.sPAojMx1m1J8PhPIbf-1MktYQCfUzP_o1PSYOzA9XIE"
     );
 

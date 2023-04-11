@@ -7,23 +7,24 @@ require("dotenv").config();
 const expressAsyncHandler = require("express-async-handler");
 
 // named export special user token
-exports.verifySpecialUser = expressAsyncHandler(async (req, res, next) => {
+exports.verifyAdmin = expressAsyncHandler(async (req, res, next) => {
   //token verification logic get bearer token from header req
   let bearerToken = req.headers.authorization;
   //check existence of bearer token
   console.log(bearerToken);
   if (bearerToken == undefined) {
-    res.status(401).send({ Message: "unauthorized access" });
+    res.status(401).send({ Message: "Unauthorized access" });
   }
   //if bearer token exists, get token from bearer token
   else {
-    let token = bearerToken.split(" ")[1]; //["bearer",token]
+    //["bearer",token]
+    let token = bearerToken.split(" ")[1]; 
 
     try {
       let decodedToken = jwt.verify(token, process.env.SECRET_KEY);
 
-      // verify role and call next if verified successfully 
-      if (decodedToken.userRole == "specialUser") {
+      // verify role and call next if verified successfully
+      if (decodedToken.userRole == "admin") {
         next();
       } else {
         // sending back unauthorize access
@@ -34,4 +35,4 @@ exports.verifySpecialUser = expressAsyncHandler(async (req, res, next) => {
       res.status(440).send({ Message: "Session Expired! Login again!" });
     }
   }
-}); 
+});

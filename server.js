@@ -20,7 +20,7 @@ const sequelize = require("./db/db.config");
 
 // importing helmet module to secure app by setting various HTTP headers
 const helmet = require("helmet");
-app.use(helmet())
+app.use(helmet());
 
 // dotenv
 require("dotenv").config();
@@ -44,7 +44,7 @@ const { verifyProjectManger } = require("./middlewares/verifyProjectManager");
 const { verifyGdo } = require("./middlewares/verifyGdo");
 
 // importing verification token for special user
-const { verifySpecialUser } = require("./middlewares/verifySpecialUser");
+const { verifyAdmin } = require("./middlewares/verifyAdmin");
 
 // importing verification token for super admin
 const { verifySuperAdmin } = require("./middlewares/verifySuperAdmin");
@@ -64,8 +64,8 @@ const superAdmin = require("./routes/superAdmin.route");
 app.use("/super-admin", verifySuperAdmin, superAdmin);
 
 // special user api middleware
-const specialUser = require("./routes/specialUser.route");
-app.use("/special-user", verifySpecialUser, specialUser);
+const admin = require("./routes/admin.route");
+app.use("/admin", verifyAdmin, admin);
 
 // project manager api middleware
 const projectManager = require("./routes/projectManager.route");

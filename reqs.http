@@ -34,18 +34,18 @@ POST http://localhost:5000/user/forgot-password
 Content-Type: application/json
 
 {
-    "email": "mohit@westagilelab.com"
+    "email": "admin@westagilelab.com"
 }
 
 ###
 
 # USER PASSWORD RESET
 
-PUT http://localhost:5000/user/reset-password/mohit@westagilelab.com/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vaGl0QHdlc3RhZ2lsZWxhYi5jb20iLCJpYXQiOjE2ODA3ODQzMzIsImV4cCI6MTY4MDc4NTIzMn0.wDAdlXv35nIosKPduoZWUkbNSeSKSp2b3VycgtTLhOE
+PUT http://localhost:5000/user/reset-password/admin@westagilelab.com/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHdlc3RhZ2lsZWxhYi5jb20iLCJpYXQiOjE2ODExMjkwNDYsImV4cCI6MTY4MTEyOTk0Nn0.lyvMxRrr6U-ht5UFR6fUp-XlHfOESFj2ij4XPbHOCy0
 Content-Type: application/json
 
 {
-    "password": "mohit"
+    "password": "admin"
 }
 
 
@@ -288,7 +288,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsInVzZ
 
 
 
-################################### SPECIAL USERS ROUTES ###################################
+################################### ADMIN ROUTES ###################################
 
 
 # LOGIN
@@ -296,7 +296,7 @@ POST http://localhost:5000/user/login
 Content-Type: application/json
 
 {
-    "email": "specialUser@westagilelab.com",
+    "email": "admin@westagilelab.com",
     "password": "specialUser"
 }
 
@@ -307,8 +307,8 @@ Content-Type: application/json
 
 # ALL PROJECTS
 
-GET http://localhost:5000/special-user/all-projects
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsInVzZXJSb2xlIjoic3BlY2lhbFVzZXIiLCJpYXQiOjE2ODAwMDMyNTEsImV4cCI6MTY4MDA4OTY1MX0.UnR6YYTHDpEPKSALtmRa-34gv4CB2dvGF2fmT7Y9g-U
+GET http://localhost:5000/admin/all-projects
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2ODExMjcxOTIsImV4cCI6MTY4MTIxMzU5Mn0.5FqENq_7Jq3mH6hL6ppocLROHeXaJhtz6AsgakUPWGg
 
 
 ###
@@ -316,8 +316,8 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsInVzZ
 
  
 # DETAILED PROJECT VIEW BY PROJECT ID
-GET http://localhost:5000/special-user/detailed-view/project/5
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsInVzZXJSb2xlIjoic3BlY2lhbFVzZXIiLCJpYXQiOjE2ODA1MTg4MzEsImV4cCI6MTY4MDYwNTIzMX0.4IhskNCUAbtIaexmQcNZcXj_Ot62VNqTzsUB42nNV0k
+GET http://localhost:5000/admin/detailed-view/project/5
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2ODExMjcxOTIsImV4cCI6MTY4MTIxMzU5Mn0.5FqENq_7Jq3mH6hL6ppocLROHeXaJhtz6AsgakUPWGg
 
 
 ###
@@ -326,7 +326,7 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsInVzZ
 
 # SPECIAL USER CREATE PROJECT
 
-POST http://localhost:5000/special-user/create-project
+POST http://localhost:5000/admin/create-project
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsInVzZXJSb2xlIjoic3BlY2lhbFVzZXIiLCJpYXQiOjE2ODAwMDM3NTksImV4cCI6MTY4MDA5MDE1OX0.zvfPziBnDKM3QBR1-msoEIsv3arNp92Dqpot5oIOvw8
 Content-Type: application/json
 
@@ -352,8 +352,8 @@ Content-Type: application/json
 # ALL RESOURCE REQUESTS
 
 ###
-GET http://localhost:5000/special-user/all-resource-requests
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsInVzZXJSb2xlIjoic3BlY2lhbFVzZXIiLCJpYXQiOjE2ODA2Nzc0OTksImV4cCI6MTY4MDc2Mzg5OX0.53wGEm_I9ICSL1P5NL-v-N6WF8CWjsK3uoliLMPjAHw
+GET http://localhost:5000/admin/all-resource-requests
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2ODExMjcxOTIsImV4cCI6MTY4MTIxMzU5Mn0.5FqENq_7Jq3mH6hL6ppocLROHeXaJhtz6AsgakUPWGg
 
 ###
 
@@ -373,7 +373,7 @@ Content-Type: application/json
 
 
 # UPDATE A PROJECT
-PUT http://localhost:5000/special-user/update-project/project/1
+PUT http://localhost:5000/admin/update-project/project/1
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZXJSb2xlIjoic3BlY2lhbFVzZXIiLCJpYXQiOjE2Nzg3NzM2ODAsImV4cCI6MTY3ODg2MDA4MH0.K6HQCD9P0x-OS_bJFNrtDT5ra6hm4gDTJC49zQ18Zkw
 Content-Type: application/json
 
@@ -399,7 +399,7 @@ Content-Type: application/json
 
 # DELETE A PROJECT BY PROJECT ID
 
-DELETE http://localhost:5000/special-user/delete-project/project/11
+DELETE http://localhost:5000/admin/delete-project/project/11
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZXJSb2xlIjoic3BlY2lhbFVzZXIiLCJpYXQiOjE2Nzg4ODIzMTQsImV4cCI6MTY3ODk2ODcxNH0.TQHEjSVssQ_O_WxH28JxHdJIB1Mws62wcdR0503cBu0
 
 
@@ -407,7 +407,7 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZ
 
 
 # DELETE RESOURCE REQUEST
-DELETE http://localhost:5000/special-user/delete-resource-request/5
+DELETE http://localhost:5000/admin/delete-resource-request/5
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsInVzZXJSb2xlIjoic3BlY2lhbFVzZXIiLCJpYXQiOjE2ODA2Nzc0OTksImV4cCI6MTY4MDc2Mzg5OX0.53wGEm_I9ICSL1P5NL-v-N6WF8CWjsK3uoliLMPjAHw
 
 
@@ -444,8 +444,8 @@ Content-Type: application/json
 
 # GET PROJECTTS UNDER PROJECT MANAGER
 
-GET http://localhost:5000/project-manager/projects-under-project-manager/7
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsInVzZXJSb2xlIjoicHJvamVjdE1hbmFnZXIiLCJpYXQiOjE2ODA1MTY1OTEsImV4cCI6MTY4MDYwMjk5MX0.DOlTP66ys0lqkAA7KbDaADd0KqCRqmNZIhc7hbi-VxE
+GET http://localhost:5000/project-manager/all-projects/7
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZXJSb2xlIjoicHJvamVjdE1hbmFnZXIiLCJpYXQiOjE2ODExMjQzOTMsImV4cCI6MTY4MTIxMDc5M30.K3390Jcc2t04ZHvl9NgwmCpGSq841qSSfZe4lKE7FXo
 
 
 ###
