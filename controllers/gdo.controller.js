@@ -53,7 +53,7 @@ const allProjectsUnderGdo = expressAsyncHandler(async (req, res) => {
   });
 
   // if projects array length is 0
-  if (projects.length == 0) {
+  if (projects.length === 0) {
     res.status(204).send({ Message: "No projects exists!" });
   } else {
     res.status(200).send({

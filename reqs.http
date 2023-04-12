@@ -20,9 +20,8 @@ Content-Type: application/json
 
 {
 
-     
-    "email": "mohit@westagilelab.com",
-    "password": "mohit"
+    "email": "shivam@westagilelab.com",
+    "password": "shivam"
 }
 
 ###

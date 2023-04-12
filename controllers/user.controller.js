@@ -83,7 +83,7 @@ const login = expressAsyncHandler(async (req, res) => {
 
   // if user is null
   if (userRecord == null) {
-    res.status(204).send({ Message: "User not found!" });
+    res.send({ Message: "User not found!" });
   }
   // verify password
   else {

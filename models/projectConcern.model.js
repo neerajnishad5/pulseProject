@@ -30,7 +30,7 @@ exports.ProjectConcern = sequelize.define(
     },
     raisedOn: {
       type: DataTypes.DATEONLY,
-      allowNull: false,
+      // allowNull: false,
     },
     severityOfConcern: {
       type: DataTypes.STRING,
