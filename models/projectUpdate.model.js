@@ -10,6 +10,8 @@ const { Project } = require("../models/project.model");
 // importing user model
 const { User } = require("../models/user.model");
 
+sequelize.sync();  
+
 // exporting project update model
 exports.ProjectUpdate = sequelize.define(
   "projectUpdate",
@@ -24,14 +26,25 @@ exports.ProjectUpdate = sequelize.define(
     updateDate: {
       type: DataTypes.DATEONLY,
       // allowNull: false,
-      
     },
     projectStatus: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    projectFitnessIndicator: {
-      type: DataTypes.CHAR,
+    scheduleStatus: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    resourcingStatus: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    qualityStatus: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    waitingForClient: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
     projectManager: {

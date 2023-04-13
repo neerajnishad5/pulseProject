@@ -35,7 +35,7 @@ sequelize
   .catch((err) => console.log(err));
 
 // creating tables : calling sync method
-sequelize.sync({});
+sequelize.sync({ });
 
 // importing verification token for project manager
 const { verifyProjectManger } = require("./middlewares/verifyProjectManager");

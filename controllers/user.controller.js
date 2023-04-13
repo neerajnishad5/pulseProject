@@ -224,8 +224,14 @@ const resetPassword = expressAsyncHandler(async (req, res) => {
       res.status(200).send({ Message: "Password not reset!" });
     }
   } catch (error) {
-    console.log("Error in resetpassword: ", error.message);
+    console.log("Error in reset password: ", error.message);
   }
 });
 
-module.exports = { login, register, resetPassword, forgotPassword };
+// exporting controllers
+module.exports = {
+  login,
+  register,
+  resetPassword,
+  forgotPassword,
+};

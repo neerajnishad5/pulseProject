@@ -1,8 +1,8 @@
 // importing expressAsyncHandler
 const expressAsyncHandler = require("express-async-handler");
 
-// import user controller
-const { User } = require("../models/user.model");
+// import user model
+const { User } = require("../models/user.model"); 
 
 // assigning role to some employee
 const assignRole = expressAsyncHandler(async (req, res) => {
@@ -14,7 +14,6 @@ const assignRole = expressAsyncHandler(async (req, res) => {
   const find = await User.findOne({
     where: {
       userId: userId,
- 
     },
   });
 
@@ -37,7 +36,9 @@ const assignRole = expressAsyncHandler(async (req, res) => {
     console.log("find log", find);
 
     // send back response
-    res.status(200).send({ Message: `User ${userId} assigned ${role}!`, payload: find });
+    res
+      .status(200)
+      .send({ Message: `User ${userId} assigned ${role}!`, payload: find });
   }
 });
 
@@ -50,7 +51,7 @@ const getAllUsers = expressAsyncHandler(async (req, res) => {
     },
   });
 
-  console.log("print data",data);
+  console.log("print data", data);
 
   // send back response
   res.status(200).send({ Message: "All users!", payload: data });
@@ -69,7 +70,9 @@ const unassignedUsers = expressAsyncHandler(async (req, res) => {
   });
 
   // sending back response
-  res.status(200).send({ Message: "All users with unassigned roles!", payload: users });
+  res
+    .status(200)
+    .send({ Message: "All users with unassigned roles!", payload: users });
 });
 
 // exporting controllers

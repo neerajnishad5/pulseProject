@@ -1,3 +1,7 @@
+
+
+
+
 ################################### USER ROUTES ###################################
 
 
@@ -94,7 +98,7 @@ Content-Type: application/json
 # GET ALL USERS
 
 GET http://localhost:5000/super-admin/all-users
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJSb2xlIjoic3VwZXJBZG1pbiIsImlhdCI6MTY4MDI0MTc4MCwiZXhwIjoxNjgwMzI4MTgwfQ.PdbVxWf6uXkBkmmL1MKGtMpd72KIR5-UixjXoyARGzw
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJSb2xlIjoic3VwZXJBZG1pbiIsImlhdCI6MTY4MTM3MTk2MCwiZXhwIjoxNjgxNDU4MzYwfQ.3QObRYmXPhUDxeXRwsvM4PpLTu8lg3T-ymrkPsPLOsE
 
 ###
 
@@ -433,8 +437,8 @@ POST http://localhost:5000/user/login
 Content-Type: application/json
 
 {
-    "email": "projectManager@westagilelab.com",
-    "password": "projectManager"
+    "email": "anjali@westagilelab.com",
+    "password": "anjali"
 }
 
 ###
@@ -485,21 +489,23 @@ Content-Type: application/json
 
 
 # RAISE PROJECT UPDATE
-
 POST http://localhost:5000/project-manager/raise-project-update/project/1
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZXJSb2xlIjoicHJvamVjdE1hbmFnZXIiLCJpYXQiOjE2ODA0MTQ4NjgsImV4cCI6MTY4MDUwMTI2OH0.OzHz3FMcHDF4Zt3EIR4wN26Z0aNaTX0k-OnSA7_vYHI
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE4LCJ1c2VyUm9sZSI6InByb2plY3RNYW5hZ2VyIiwiaWF0IjoxNjgxMzg2MzIwLCJleHAiOjE2ODE0NzI3MjB9.LSySZfE4iYVqH1IXbQ2L0UFTvZAbdAUHjizTWj0ln6o
 Content-Type: application/json
 
 {
-    "projectId": 1,
-    "updateDate": "2023-02-09",
-    "clientAccountManager": "manager1",
+    "projectId": 23,
+    "updateDate": "2023-02-09", 
     "projectStatus": "status1",
-    "projectFitnessIndicator": "g",
+    "scheduleStatus": "g",
+    "resourcingStatus": "g",
+    "qualityStatus": "g",
+    "waitingForClient": false,
     "projectManager": 7
 }
 
 ###
+
 
 # UPDATE PROJECT CONCERN // not required
 
